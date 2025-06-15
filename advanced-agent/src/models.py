@@ -1,7 +1,9 @@
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 
+# This module defines data models for structured outputs from LLMs.
 
+# CompanyAnalysis is used to represent the structured output of an LLM analysis of a company or tool related to developer technologies.
 class CompanyAnalysis(BaseModel):
     """Structured output for LLM company analysis focused on developer tools"""
     pricing_model: str  # Free, Freemium, Paid, Enterprise, Unknown
@@ -12,7 +14,7 @@ class CompanyAnalysis(BaseModel):
     language_support: List[str] = []
     integration_capabilities: List[str] = []
 
-
+# CompanyInfo is used to represent detailed information about a company, including its name, description, website, and developer-specific fields.
 class CompanyInfo(BaseModel):
     name: str
     description: str
@@ -27,7 +29,7 @@ class CompanyInfo(BaseModel):
     integration_capabilities: List[str] = []
     developer_experience_rating: Optional[str] = None  # Poor, Good, Excellent
 
-
+# ResearchState is used to represent the state of a research session, including the query, extracted tools, companies found, search results, and analysis.
 class ResearchState(BaseModel):
     query: str
     extracted_tools: List[str] = []  # Tools extracted from articles

@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from src.workflow import Workflow
 
+# Load environment variables from .env file
 load_dotenv()
 
 def main():
@@ -9,6 +10,7 @@ def main():
 
     print(f"Starting DevHelper : your AI-powered Developer Research Agent!")
     
+    # Prompt the user for a query and run until they exit
     while True:
         query = input("\n Developer Query: ").strip()
         if query.lower() in ["exit", "quit"]:
@@ -20,6 +22,7 @@ def main():
             print(f"Research Result for query: {query}")
             print("=" * 60)
 
+            # Display the structured analysis of companies
             for i, company in enumerate(result.companies, start=1):
                 print(f"{i}. {company.name} - {company.description}")
                 print(f"   Website: {company.website}")

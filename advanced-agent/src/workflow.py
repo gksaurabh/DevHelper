@@ -39,14 +39,17 @@ class Workflow:
         return graph.compile()
 
 
+    # This method defines the tool extraction step of the workflow
     def _extract_tools_step(self, state: ResearchState) -> Dict[str, Any]:
         print(f"Finding articles related to: {state.query}")
 
+        # Search for articles related to the query and 
         article_query = f"{state.query} tools comparison best alternatives"
         search_results = self.firecrawl.search_companies(article_query, num_results=5)
 
         all_content = ""
 
+        # Scrape the content of each article found in the search results
         for result in search_results.data:
             url = result.get("url", "")
             scraped = self.firecrawl.scrape_company_pages(url)
@@ -73,6 +76,7 @@ class Workflow:
             print(f"Error extracting tools: {e}")
             return {"extracted_tools": []}
         
+    # This method analyzes the content of each company page using the LLM and returns a structured analysis    
     def _analyze_company_content(self, company_name: str, content: str) -> CompanyAnalysis:
         structured_llm = self.llm.with_structured_output(CompanyAnalysis)
 
@@ -158,6 +162,7 @@ class Workflow:
 
         return {"companies": companies}
         
+    # This method generates recommendations based on the research findings and the user's query    
     def _analyze_step(self, state: ResearchState) -> Dict[str, Any]:
         print("Generating Recommendations...")
 
@@ -173,6 +178,7 @@ class Workflow:
         response = self.llm.invoke(messages)
         return {"analysis": response.content}
 
+    # This method runs the entire workflow with the given query and returns the final state
     def run(self, query: str) -> ResearchState:
         initial_state = ResearchState(query=query)
         final_state = self.workflow.invoke(initial_state)

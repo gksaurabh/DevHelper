@@ -1,4 +1,4 @@
-
+# A collection of prompts for our LLM models including system prompts, user prompts, and examples for analyzing developer tools and technologies all baked into a single class.
 class DeveloperToolsPrompts:
     """Collection of prompts for analyzing developer tools and technologies"""
 

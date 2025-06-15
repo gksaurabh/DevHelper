@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import asyncio
 import os
 
+# Load environment variables from .env file
 load_dotenv()
 
 # initalize our LLM model
